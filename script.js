@@ -135,11 +135,14 @@ document.getElementById('btnEqual').addEventListener('click', function () {
     })
 
 document.getElementById('btnRetry').addEventListener('click', function () {
-    minValue = parseInt(prompt('Введите значение минимума'));
-    maxValue = parseInt(prompt('Введите значение максимума'));
+    let minInput = parseInt(prompt('Минимальное знание числа для игры','0'));
+    let maxInput = parseInt(prompt('Максимальное знание числа для игры','100'));
+    let minValue = isNaN(parseInt(minInput)) ? 0 : parseInt(minInput) < -999 ? -999 : parseInt(minInput); // Если пользователем была введена строка, то присваивается число 0. Если было введено число, меньше -999, то присваивается число -999
+    let maxValue = isNaN(parseInt(maxInput)) ? 100 : parseInt(maxInput) > 999 ? 999 : parseInt(maxInput); // Если пользователем была введена строка, то присваивается число 110. Если было введено число, юольше 999, то присваивается число 999
+    alert(`Загадайте любое целое число от ${minValue} до ${maxValue}, а я его угадаю`);
+    let answerNumber  = Math.floor((minValue + maxValue) / 2);
+    let orderNumber = -1;
     gameRun = true;
-    orderNumber = 1;
-    answerNumber = Math.floor((minValue + maxValue) / 2);
     
     orderNumberField.innerText = orderNumber;
     answerField.innerText = `Вы загадали число ${analyzeNumber(answerNumber)}?`;
